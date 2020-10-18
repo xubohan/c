@@ -10,12 +10,18 @@ elem *head;
 
 struct elem* createList(){
     head = (elem *)malloc(sizeof(elem));
+    if (head == NULL) {
+        printf("error");
+    }
     head->nxt = NULL;
     return head;
 }
 
 struct  elem* creatNode(int value) {
     elem *temp = (elem *)malloc(sizeof(elem));
+    if (temp == NULL) {
+        printf("error");
+    }
     temp->val = value;
     temp->nxt = NULL;
     return temp;
@@ -47,12 +53,13 @@ void insertq(elem *qhead, int value){
 void removeq(elem * qhead){
         while (qhead!= NULL) {
             if (qhead->nxt->nxt == NULL) {
+                free(qhead->nxt);
                 qhead->nxt = NULL;
                 break;
             }
             qhead = qhead->nxt;
         }
-    return;
+    //return;
 }
 
 int sizeq(elem *qhead){
@@ -80,17 +87,16 @@ int main() {
     struct elem* list = createList();
     insertq(list,1);
     insertq(list,2);
-//    insertq(list,3);
+    insertq(list,3);
 //    insertq(list,1);
 //    insertq(list,2);
     //insertq(list,2);
     removeq(list);
-//   removeq(list);
+   removeq(list);
 //    removeq(list);
 //    removeq(list);
     listPrint(list);
-    //struct elem* abc = searchq(list, 1);
-    //printf("\n The value is %d \n", abc->val);
+    struct elem* abc = searchq(list, 1);
+    printf("\n The value is %d \n", abc->val);
     printf("\nThe size of linkedlist is: %d\n",sizeq(list));
-
 }
